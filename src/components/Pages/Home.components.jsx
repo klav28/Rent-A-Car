@@ -45,6 +45,7 @@ StHome.Button = styled(Link)`
   padding-top: 12px;
   padding-bottom: 12px;
   margin-bottom: 12px;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--secondary-active-color);

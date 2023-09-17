@@ -26,7 +26,6 @@ StGalleryItem.Title = styled.div`
 StGalleryItem.Name = styled.p`
   font-size: 16px;
   font-weight: 500;
-  font-weight: 500;
 `;
 
 StGalleryItem.Model = styled.span`
@@ -66,6 +65,7 @@ StGalleryItem.Button = styled.button`
   border-radius: 12px;
   padding-top: 12px;
   padding-bottom: 12px;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--secondary-active-color);

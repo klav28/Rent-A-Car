@@ -5,11 +5,14 @@ import CarsGallery from '../CarsGallery/CarsGallery';
 
 const Favorites = () => {
   const [cars, setCars] = useState([]);
-
-  const favorite = JSON.parse(localStorage.getItem(LSKEY));
-  console.log(favorite);
+  const [fav, setFav] = useState(null);
 
   useEffect(() => {
+    const parsedFavorites = JSON.parse(localStorage.getItem(LSKEY));
+    if (parsedFavorites) {
+      setFav([...parsedFavorites]);
+    }
+
     const fetchCars = async () => {
       try {
         const response = await axios.get(`${BASE_URL}cars/`);
@@ -20,18 +23,51 @@ const Favorites = () => {
     };
 
     fetchCars().then(data => {
-      const favoriteCars = data.filter(car =>
-        favorite.includes(car.id.toString())
-      );
-      setCars(favoriteCars);
+      setCars(data);
     });
   }, []);
 
+  const handleFavoriteButton = evt => {
+    const favID = evt.currentTarget.id;
+    //console.log('Favorited', favID);
+
+    const idx = fav.indexOf(favID);
+    // console.log('IDX ', idx);
+
+    if (idx < 0) {
+      setFav([...fav, favID]);
+      // console.log('ADDED:', favID);
+    } else {
+      setFav(fav.filter(el => el !== favID));
+      // console.log('REMOVED:', favID);
+    }
+  };
+
+  const favoriteCars = cars.filter(car => fav.includes(car.id.toString()));
+
+  useEffect(() => {
+    if (fav !== null) {
+      localStorage.setItem(LSKEY, JSON.stringify(fav));
+    }
+  }, [fav]);
+
+  // useEffect(() => {
+  //   const favoriteCars = cars.filter(car => fav.includes(car.id.toString()));
+  //   setCars(favoriteCars);
+  // }, [cars]);
+
   return (
-    <div>
-      <h1>My Text</h1>
-      {cars.length ? <CarsGallery carArray={cars} /> : null}
-    </div>
+    <>
+      {favoriteCars.length ? (
+        <CarsGallery
+          carArray={favoriteCars}
+          favArray={fav}
+          handleFavorite={handleFavoriteButton}
+        />
+      ) : (
+        <h2>Favorite List Is Empty</h2>
+      )}
+    </>
   );
 };
 

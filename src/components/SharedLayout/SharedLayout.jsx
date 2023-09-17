@@ -13,8 +13,8 @@ export const SharedLayout = () => {
             <StLayoutItem.Link to="/" end>
               Home
             </StLayoutItem.Link>
-            <StLayoutItem.Link to="catalog">Catalog</StLayoutItem.Link>
-            <StLayoutItem.Link to="favorites">Favorites</StLayoutItem.Link>
+            <StLayoutItem.Link to="/catalog">Catalog</StLayoutItem.Link>
+            <StLayoutItem.Link to="/favorites">Favorites</StLayoutItem.Link>
           </nav>
         </StLayoutItem.Header>
       </Container>

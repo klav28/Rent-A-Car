@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { BASE_URL, LSKEY } from '../Vars';
 import axios from 'axios';
 import CarsGallery from '../CarsGallery/CarsGallery';
+import ModalPage from '../Modal/ModalPage';
+import StFav from './Favorites.component';
 
 const Favorites = () => {
   const [cars, setCars] = useState([]);
   const [fav, setFav] = useState(null);
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [detailInfo, setDetailInfo] = useState([]);
 
   useEffect(() => {
     const parsedFavorites = JSON.parse(localStorage.getItem(LSKEY));
@@ -29,17 +33,12 @@ const Favorites = () => {
 
   const handleFavoriteButton = evt => {
     const favID = evt.currentTarget.id;
-    //console.log('Favorited', favID);
-
     const idx = fav.indexOf(favID);
-    // console.log('IDX ', idx);
 
     if (idx < 0) {
       setFav([...fav, favID]);
-      // console.log('ADDED:', favID);
     } else {
       setFav(fav.filter(el => el !== favID));
-      // console.log('REMOVED:', favID);
     }
   };
 
@@ -51,21 +50,33 @@ const Favorites = () => {
     }
   }, [fav]);
 
-  // useEffect(() => {
-  //   const favoriteCars = cars.filter(car => fav.includes(car.id.toString()));
-  //   setCars(favoriteCars);
-  // }, [cars]);
+  const handleLearnButtonClick = evt => {
+    const id = evt.currentTarget.id;
+    console.log('Clicked!', id);
+    setIsShowModal(true);
+    setDetailInfo(cars.find(el => el.id.toString() === id.toString()));
+  };
+
+  const handleModalClose = evt => {
+    setIsShowModal(false);
+  };
 
   return (
     <>
+      {isShowModal && (
+        <ModalPage carDetail={detailInfo} handleModalClose={handleModalClose} />
+      )}
       {favoriteCars.length ? (
         <CarsGallery
           carArray={favoriteCars}
           favArray={fav}
           handleFavorite={handleFavoriteButton}
+          handleLearnButton={handleLearnButtonClick}
         />
       ) : (
-        <h2>Favorite List Is Empty</h2>
+        <StFav>
+          <StFav.H2>Favorite List Is Empty</StFav.H2>
+        </StFav>
       )}
     </>
   );

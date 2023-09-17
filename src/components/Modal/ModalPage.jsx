@@ -10,7 +10,12 @@ const ModalPage = ({ carDetail, handleModalClose }) => {
   return (
     <StModal.Backdrop onClick={handleModalClose}>
       <StModal.Card>
-        <StModal.CloseButton onClick={handleModalClose}>X</StModal.CloseButton>
+              <StModal.CloseButton onClick={handleModalClose}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18" stroke="#121417" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6 6L18 18" stroke="#121417" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </StModal.CloseButton>
         <StModal.Img
           src={`${carDetail.img}`}
           alt={`${carDetail.make} ${carDetail.model}`}

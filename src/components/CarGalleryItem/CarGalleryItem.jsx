@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const CarGalleryItem = ({ car, isFavorite, handleSubmit, handleFavorite }) => {
   const addressSplit = car.address.split(',');
-  // console.log(car.id, ' - ', isFavorite);
 
   return (
     <StGalleryItem>

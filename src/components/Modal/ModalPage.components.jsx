@@ -10,7 +10,7 @@ StModal.Backdrop = styled.div`
   width: 100%;
   height: 100%;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(18, 20, 23, 0.5);
 `;
 
 StModal.Ul = styled.ul`
@@ -120,6 +120,7 @@ StModal.ConditionElAcc = styled.span`
 
 StModal.CloseButton = styled.button`
   position: absolute;
+  background-color: transparent;  
   right: 16px;
   top: 16px;
   width: 24px;

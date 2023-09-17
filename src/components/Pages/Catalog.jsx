@@ -56,7 +56,7 @@ const Catalog = () => {
     const id = evt.currentTarget.id;
     console.log('Clicked!', id);
     setIsShowModal(true);
-    setDetailInfo(cars.find(el => el.id == id));
+    setDetailInfo(cars.find(el => el.id.toString() === id.toString()));
   };
 
   const handleModalClose = evt => {

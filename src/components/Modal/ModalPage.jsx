@@ -2,10 +2,6 @@ import StModal from './ModalPage.components';
 import PropTypes from 'prop-types';
 
 const ModalPage = ({ carDetail, handleModalClose }) => {
-  const handleRentalCar = () => {
-    console.log('PHONE TO!');
-  };
-
   const addressSplit = carDetail.address.split(',');
   const mileAge = carDetail.mileage
     .toString()

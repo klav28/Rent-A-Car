@@ -2,11 +2,48 @@
 import StContainer from './CarsGallery.components';
 import Container from '../Container/Container';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import CarGalleryItem from '../CarGalleryItem/CarGalleryItem';
+import { useState, useEffect } from 'react';
+import { LSKEY } from '../Vars';
 
 const CarsGallery = ({ carArray }) => {
-  const location = useLocation();
-  console.log('location gallary', location);
+  const [favorite, setFavorite] = useState(null);
+
+  const handleLearnButtonClick = evt => {
+    console.log('Clicked!', evt.currentTarget.id);
+  };
+
+  //CDM
+  useEffect(() => {
+    const parsedFavorites = JSON.parse(localStorage.getItem(LSKEY));
+    if (parsedFavorites) {
+      setFavorite([...parsedFavorites]);
+    }
+  }, []);
+
+  // CDU
+  useEffect(() => {
+    if (favorite !== null) {
+      localStorage.setItem(LSKEY, JSON.stringify(favorite));
+    }
+  }, [favorite]);
+
+  const handleFavoriteButton = evt => {
+    const favoriteID = evt.currentTarget.id;
+    //    console.log('Favorited', favoriteID);
+
+    const idx = favorite.indexOf(favoriteID);
+
+    //    console.log('IDX ', idx);
+
+    if (idx < 0) {
+      setFavorite([...favorite, favoriteID]);
+      //      console.log('ADDED:', favoriteID);
+    } else {
+      setFavorite(favorite.filter(el => el !== favoriteID));
+      //      console.log('REMOVED:', favoriteID);
+    }
+  };
 
   return (
     <Container>
@@ -14,12 +51,12 @@ const CarsGallery = ({ carArray }) => {
         {carArray.map(car => (
           <li key={car.id}>
             <StContainer.Card>
-              <StContainer.Link
-                state={{ from: location.pathname + location.search }}
-                to={`/catalog/${car.id}`}
-              >
-                <h3>{car.model}</h3>
-              </StContainer.Link>
+              <CarGalleryItem
+                car={car}
+                isFavorite={favorite.includes(car.id.toString())}
+                handleSubmit={handleLearnButtonClick}
+                handleFavorite={handleFavoriteButton}
+              />
             </StContainer.Card>
           </li>
         ))}

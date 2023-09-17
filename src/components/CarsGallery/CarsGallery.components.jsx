@@ -7,21 +7,16 @@ StContainer.Ul = styled.ul`
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  padding-top: 50px;
+  column-gap: 29px;
+  row-gap: 50px;
 `;
 
 StContainer.Card = styled.div`
-  width: 270px;
+  width: 274px;
   display: flex;
   flex-direction: column;
   background-color: white;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  cursor: pointer;
-  transition: transform cubic-bezier(0.4, 0, 0.2, 1) 250ms;
-
-  &:hover {
-    transform: scale(1.02);
-  }
 `;
 
 StContainer.Link = styled(Link)`

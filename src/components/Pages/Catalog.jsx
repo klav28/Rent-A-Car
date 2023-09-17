@@ -1,24 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import Container from '../Container/Container';
-import Searchbar from '../Searchbar/Searchbar';
+import React, { useState, useEffect } from 'react';
 import { BASE_URL } from '../Vars';
 import axios from 'axios';
-import CarsGallery from 'components/CarsGallery/CarsGallery';
+import CarsGallery from '../CarsGallery/CarsGallery';
 
-const Movies = () => {
-  const [findedCarss, setFindedCarss] = useState([]);
-  const [searchParams] = useSearchParams();
-
-  const queryString = searchParams.get('query') ?? '';
+const Catalog = () => {
+  const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    const fetchSearch = async page => {
+    const fetchCars = async page => {
       try {
-        const response = await axios.get(`${BASE_URL}search/movie`, {
-          params: {
-            query: queryString,
+        const response = await axios.get(`${BASE_URL}cars/`, {
+          searchParams: {
             page: page,
+            limit: 8,
           },
         });
         return response.data;
@@ -27,19 +21,16 @@ const Movies = () => {
       }
     };
 
-    if (queryString.trim !== '') {
-      fetchSearch(1).then(data => {
-        setFindedCarss(data.results);
-      });
-    }
-  }, [queryString]);
+    fetchCars(1).then(data => {
+      setCars(data);
+    });
+  }, []);
 
-  return (
-    <Container>
-      <Searchbar querystring={queryString} />
-      {findedCarss.length > 0 && <CarsGallery CarsArray={findedCarss} />}
-    </Container>
-  );
+  // useEffect(() => {
+  //   console.log(cars);
+  // }, [cars]);
+
+  return <CarsGallery carArray={cars} />;
 };
 
-export default Movies;
+export default Catalog;

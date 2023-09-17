@@ -7,42 +7,42 @@ import { useState, useEffect } from 'react';
 import { LSKEY } from '../Vars';
 
 const CarsGallery = ({ carArray }) => {
-  const [favorite, setFavorite] = useState(null);
+  // const [favorite, setFavorite] = useState(null);
 
   const handleLearnButtonClick = evt => {
     console.log('Clicked!', evt.currentTarget.id);
   };
 
   //CDM
-  useEffect(() => {
-    const parsedFavorites = JSON.parse(localStorage.getItem(LSKEY));
-    if (parsedFavorites) {
-      setFavorite([...parsedFavorites]);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const parsedFavorites = JSON.parse(localStorage.getItem(LSKEY));
+  //   if (parsedFavorites) {
+  //     setFavorite([...parsedFavorites]);
+  //   }
+  // }, []);
 
   // CDU
-  useEffect(() => {
-    if (favorite !== null) {
-      localStorage.setItem(LSKEY, JSON.stringify(favorite));
-    }
-  }, [favorite]);
+  // useEffect(() => {
+  //   if (favorite !== null) {
+  //     localStorage.setItem(LSKEY, JSON.stringify(favorite));
+  //   }
+  // }, [favorite]);
 
   const handleFavoriteButton = evt => {
     const favoriteID = evt.currentTarget.id;
-    //    console.log('Favorited', favoriteID);
+    console.log('Favorited', favoriteID);
 
-    const idx = favorite.indexOf(favoriteID);
+    // const idx = favorite.indexOf(favoriteID);
 
-    //    console.log('IDX ', idx);
+    // //    console.log('IDX ', idx);
 
-    if (idx < 0) {
-      setFavorite([...favorite, favoriteID]);
-      //      console.log('ADDED:', favoriteID);
-    } else {
-      setFavorite(favorite.filter(el => el !== favoriteID));
-      //      console.log('REMOVED:', favoriteID);
-    }
+    // if (idx < 0) {
+    //   setFavorite([...favorite, favoriteID]);
+    //   //      console.log('ADDED:', favoriteID);
+    // } else {
+    //   setFavorite(favorite.filter(el => el !== favoriteID));
+    //   //      console.log('REMOVED:', favoriteID);
+    // }
   };
 
   return (
@@ -53,7 +53,7 @@ const CarsGallery = ({ carArray }) => {
             <StContainer.Card>
               <CarGalleryItem
                 car={car}
-                isFavorite={favorite.includes(car.id.toString())}
+                isFavorite={false}
                 handleSubmit={handleLearnButtonClick}
                 handleFavorite={handleFavoriteButton}
               />

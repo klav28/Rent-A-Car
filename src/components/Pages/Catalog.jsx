@@ -6,7 +6,7 @@ import ModalPage from '../Modal/ModalPage';
 
 const Catalog = () => {
   const [cars, setCars] = useState([]);
-  const [fav, setFav] = useState(null);
+  const [fav, setFav] = useState(['0']);
   const [isShowModal, setIsShowModal] = useState(false);
   const [detailInfo, setDetailInfo] = useState([]);
 
@@ -47,7 +47,8 @@ const Catalog = () => {
   };
 
   useEffect(() => {
-    if (fav !== null) {
+    console.log(fav);
+    if (fav.length > 1) {
       localStorage.setItem(LSKEY, JSON.stringify(fav));
     }
   }, [fav]);

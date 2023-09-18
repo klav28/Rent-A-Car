@@ -52,7 +52,6 @@ const Favorites = () => {
 
   const handleLearnButtonClick = evt => {
     const id = evt.currentTarget.id;
-    console.log('Clicked!', id);
     setIsShowModal(true);
     setDetailInfo(cars.find(el => el.id.toString() === id.toString()));
   };

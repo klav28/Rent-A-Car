@@ -47,7 +47,6 @@ const Catalog = () => {
   };
 
   useEffect(() => {
-    console.log(fav);
     if (fav.length > 1) {
       localStorage.setItem(LSKEY, JSON.stringify(fav));
     }
@@ -55,7 +54,6 @@ const Catalog = () => {
 
   const handleLearnButtonClick = evt => {
     const id = evt.currentTarget.id;
-    console.log('Clicked!', id);
     setIsShowModal(true);
     setDetailInfo(cars.find(el => el.id.toString() === id.toString()));
   };
